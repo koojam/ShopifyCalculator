@@ -309,16 +309,6 @@ function Calculator() {
                     placeholder="0.00"
                   />
                 </FormControl>
-
-                {/* Profit Margin Display */}
-                <Box p={4} bg="gray.50" borderRadius="md">
-                  <HStack justify="space-between">
-                    <Text fontWeight="medium">Estimated Profit Margin:</Text>
-                    <Text fontWeight="bold" color={calculateProfitMargin() > 0 ? "green.500" : "red.500"}>
-                      {calculateProfitMargin()}%
-                    </Text>
-                  </HStack>
-                </Box>
               </VStack>
             </GridItem>
 
