@@ -67,7 +67,6 @@ const DecimalInput = ({ value, onChange, placeholder, min = 0 }) => {
 
 function Calculator() {
   const [plan, setPlan] = useState('basic')
-  const [monthlyRevenue, setMonthlyRevenue] = useState(0)
   const [isYearly, setIsYearly] = useState(false)
 
   // New state for product information
@@ -126,14 +125,24 @@ function Calculator() {
     advanced: "As your business scales"
   }
 
-  // Calculate transaction fees based on plan
+  // Add a function to calculate monthly revenue
+  const calculateMonthlyRevenue = () => {
+    return sellingPrice * monthlyOrders
+  }
+
+  // Update transaction fee calculation to use calculated revenue
   const getTransactionFee = () => {
     const rates = {
       basic: 0.028,     // 2.8% + 30¢ CAD online
       shopify: 0.026,   // 2.6% + 30¢ CAD online
       advanced: 0.024   // 2.4% + 30¢ CAD online
     }
-    return ((monthlyRevenue * rates[plan]) + (monthlyRevenue * 0.003)).toFixed(2) // Adding 30¢ per transaction
+    const revenue = calculateMonthlyRevenue()
+    // Calculate percentage fee
+    const percentageFee = revenue * rates[plan]
+    // Add 30¢ per transaction (monthlyOrders * 0.30)
+    const transactionFee = monthlyOrders * 0.30
+    return (percentageFee + transactionFee).toFixed(2)
   }
 
   // Get current plan cost
@@ -161,9 +170,9 @@ function Calculator() {
     return revenue > 0 ? ((revenue - totalCosts) / revenue * 100).toFixed(2) : 0
   }
 
-  // Add these new calculation functions
+  // Update calculateTotalRevenue to use the new function
   const calculateTotalRevenue = () => {
-    return (sellingPrice * monthlyOrders).toFixed(2)
+    return calculateMonthlyRevenue().toFixed(2)
   }
 
   const calculateProductCosts = () => {
@@ -421,21 +430,6 @@ function Calculator() {
                 Advanced - As your business scales - ${planCosts[isYearly ? 'yearly' : 'monthly'].advanced}/month
               </option>
             </Select>
-          </FormControl>
-
-          {/* Revenue Input */}
-          <FormControl mb={8}>
-            <FormLabel 
-              fontWeight="medium"
-              color="gray.900"
-            >
-              Expected Monthly Revenue (CAD)
-            </FormLabel>
-            <DecimalInput
-              value={monthlyRevenue}
-              onChange={setMonthlyRevenue}
-              placeholder="0.00"
-            />
           </FormControl>
 
           {/* Updated Cost Summary Box */}
