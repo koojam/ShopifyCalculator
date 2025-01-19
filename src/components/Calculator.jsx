@@ -205,6 +205,14 @@ function Calculator() {
     return (Number(calculateTotalRevenue()) - Number(calculateTotalCosts())).toFixed(2)
   }
 
+  // Add this helper function near the top of the Calculator component
+  const formatCurrency = (number) => {
+    return Number(number).toLocaleString('en-CA', {
+      minimumFractionDigits: 2,
+      maximumFractionDigits: 2
+    })
+  }
+
   return (
     <Box>
       {/* Gradient Header Section */}
@@ -446,7 +454,7 @@ function Calculator() {
                 <Text fontWeight="semibold" mb={2}>Revenue</Text>
                 <HStack justify="space-between">
                   <Text color="gray.700">Monthly Revenue:</Text>
-                  <Text fontWeight="medium">${calculateTotalRevenue()} CAD</Text>
+                  <Text fontWeight="medium">${formatCurrency(calculateTotalRevenue())} CAD</Text>
                 </HStack>
               </Box>
 
@@ -458,15 +466,15 @@ function Calculator() {
                 <VStack spacing={2} align="stretch">
                   <HStack justify="space-between">
                     <Text color="gray.700">Product Costs:</Text>
-                    <Text fontWeight="medium">${calculateProductCosts()} CAD</Text>
+                    <Text fontWeight="medium">${formatCurrency(calculateProductCosts())} CAD</Text>
                   </HStack>
                   <HStack justify="space-between">
                     <Text color="gray.700">Shipping Costs:</Text>
-                    <Text fontWeight="medium">${calculateShippingCosts()} CAD</Text>
+                    <Text fontWeight="medium">${formatCurrency(calculateShippingCosts())} CAD</Text>
                   </HStack>
                   <HStack justify="space-between">
                     <Text color="gray.700">Transaction Fees:</Text>
-                    <Text fontWeight="medium">${getTransactionFee()} CAD</Text>
+                    <Text fontWeight="medium">${formatCurrency(getTransactionFee())} CAD</Text>
                   </HStack>
                 </VStack>
               </Box>
@@ -477,19 +485,19 @@ function Calculator() {
                 <VStack spacing={2} align="stretch">
                   <HStack justify="space-between">
                     <Text color="gray.700">Shopify Plan:</Text>
-                    <Text fontWeight="medium">${getCurrentPlanCost()} CAD</Text>
+                    <Text fontWeight="medium">${formatCurrency(getCurrentPlanCost())} CAD</Text>
                   </HStack>
                   <HStack justify="space-between">
                     <Text color="gray.700">Marketing Budget:</Text>
-                    <Text fontWeight="medium">${marketingBudget} CAD</Text>
+                    <Text fontWeight="medium">${formatCurrency(marketingBudget)} CAD</Text>
                   </HStack>
                   <HStack justify="space-between">
                     <Text color="gray.700">App Subscriptions:</Text>
-                    <Text fontWeight="medium">${appCosts} CAD</Text>
+                    <Text fontWeight="medium">${formatCurrency(appCosts)} CAD</Text>
                   </HStack>
                   <HStack justify="space-between">
                     <Text color="gray.700">Staff Costs:</Text>
-                    <Text fontWeight="medium">${staffCosts} CAD</Text>
+                    <Text fontWeight="medium">${formatCurrency(staffCosts)} CAD</Text>
                   </HStack>
                 </VStack>
               </Box>
@@ -503,7 +511,7 @@ function Calculator() {
                     Total Monthly Costs:
                   </Text>
                   <Text fontWeight="bold" fontSize="lg" color="#008060">
-                    ${calculateTotalCosts()} CAD
+                    ${formatCurrency(calculateTotalCosts())} CAD
                   </Text>
                 </HStack>
                 
@@ -516,7 +524,7 @@ function Calculator() {
                     fontSize="lg" 
                     color={calculateNetProfit() > 0 ? "#008060" : "red.500"}
                   >
-                    ${calculateNetProfit()} CAD
+                    ${formatCurrency(calculateNetProfit())} CAD
                   </Text>
                 </HStack>
 
@@ -536,7 +544,7 @@ function Calculator() {
 
               {isYearly && (
                 <Text fontSize="sm" color="#008060" textAlign="right">
-                  You save ${((planCosts.monthly[plan] - planCosts.yearly[plan]) * 12).toFixed(2)} CAD annually on your Shopify plan
+                  You save ${formatCurrency((planCosts.monthly[plan] - planCosts.yearly[plan]) * 12)} CAD annually on your Shopify plan
                 </Text>
               )}
             </VStack>
