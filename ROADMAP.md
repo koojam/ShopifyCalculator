@@ -8,22 +8,21 @@
 - [x] Basic cost calculations
 
 ## Phase 2: Enhanced Cost Inputs (Current Phase)
-- [ ] Product Information Section
-  - [ ] Product cost per unit input
-  - [ ] Selling price input
-  - [ ] Estimated monthly sales input
-  - [ ] Profit margin calculator
+- [x] Product cost per unit input
+- [x] Selling price input
+- [x] Estimated monthly sales input
+- [x] Profit margin calculator
 
-- [ ] Additional Costs Section
-  - [ ] Shipping cost input
-  - [ ] Marketing budget input
-  - [ ] App subscriptions input
-  - [ ] Additional staff costs
+- [x] Additional Costs Section
+  - [x] Shipping cost input
+  - [x] Marketing budget input
+  - [x] App subscriptions input
+  - [x] Additional staff costs
 
-- [ ] Default Values
-  - [ ] Add "Use Industry Average" buttons
-  - [ ] Store default values in constants
-  - [ ] Add tooltips explaining each input
+- [x] Default Values
+  - [x] Add "Use Industry Average" buttons
+  - [x] Store default values in constants
+  - [x] Add tooltips explaining each input
 
 ## Phase 3: Advanced Calculations & Visualization
 - [ ] Cost Breakdown
@@ -169,3 +168,69 @@ Transaction Fees:
 
 ### Next Steps
 Currently in Phase 2: Adding enhanced cost inputs including product information and additional costs sections. 
+
+## Git Workflow
+
+### Branch Strategy
+- `main`: Production-ready code
+- `develop`: Main development branch
+- Feature branches: `feature/phase-{number}-{feature-name}`
+- Hotfix branches: `hotfix/{issue-description}`
+
+### Git Workflow Per Phase
+1. Before starting new phase:
+   ```bash
+   git checkout main
+   git pull origin main
+   git checkout -b feature/phase-{number}-{feature-name}
+   ```
+
+2. During development:
+   ```bash
+   # Commit frequently with meaningful messages
+   git add .
+   git commit -m "phase-{number}: descriptive message"
+   ```
+
+3. After completing a feature:
+   ```bash
+   git push origin feature/phase-{number}-{feature-name}
+   # Create Pull Request on GitHub
+   ```
+
+4. After phase completion:
+   - Merge feature branch into main
+   - Tag version: `git tag v{phase-number}.0.0`
+   - Push tags: `git push origin --tags`
+
+### Commit Message Format
+```
+phase-{number}: Brief description
+
+- Detailed bullet points of changes
+- Additional context if needed
+```
+
+### Current Repository
+- GitHub: https://github.com/koojam/ShopifyCalculator.git
+- Main Branch: Protected, requires pull request
+- Development Branch: Direct commits allowed 
+
+## Current Status (Phase 2)
+Completed:
+- Set up all input fields with decimal support
+- Implemented industry averages
+- Added tooltips for all fields
+- Basic calculations working
+
+Next Steps:
+1. Remove redundant Monthly Revenue input
+2. Update transaction fee calculations to use Product Information
+   (Selling Price × Monthly Orders) instead of separate revenue input
+3. Ensure all calculations are properly synchronized
+4. Add proper formatting for currency values in summary
+
+Known Issues to Address:
+- Redundant revenue input (needs consolidation)
+- Transaction fees calculation needs to be updated
+- Consider adding thousand separators for large numbers 
