@@ -22,7 +22,7 @@ import { InfoIcon } from '@chakra-ui/icons'
 import { useState, useEffect } from 'react'
 import { SHOPIFY_PLANS, TRANSACTION_RATES, INDUSTRY_AVERAGES, TOOLTIPS } from '../constants/pricing'
 import CostBreakdown from './CostBreakdown'
-import FinancialSummary from './FinancialSummary'
+import FinancialBreakdown from './FinancialBreakdown'
 
 const DecimalInput = ({ value, onChange, placeholder, min = 0 }) => {
   // Add local state to handle the input value
@@ -68,8 +68,7 @@ const DecimalInput = ({ value, onChange, placeholder, min = 0 }) => {
 }
 
 function Calculator() {
-  const [plan, setPlan] = useState('basic')
-  const [isYearly, setIsYearly] = useState(false)
+  const [selectedPlan, setSelectedPlan] = useState('basic_monthly')
 
   // New state for product information
   const [productCost, setProductCost] = useState(0)
@@ -109,16 +108,12 @@ function Calculator() {
 
   // Shopify plan costs (CAD)
   const planCosts = {
-    monthly: {
-      basic: 51,
-      shopify: 132,
-      advanced: 517
-    },
-    yearly: {
-      basic: 38,
-      shopify: 99,
-      advanced: 389
-    }
+    basic_monthly: { cost: 51, name: 'Basic Monthly' },
+    basic_yearly: { cost: 38, name: 'Basic Yearly (Save 25%)' },
+    shopify_monthly: { cost: 132, name: 'Shopify Monthly' },
+    shopify_yearly: { cost: 99, name: 'Shopify Yearly (Save 25%)' },
+    advanced_monthly: { cost: 517, name: 'Advanced Monthly' },
+    advanced_yearly: { cost: 389, name: 'Advanced Yearly (Save 25%)' }
   }
 
   const planDescriptions = {
@@ -132,24 +127,25 @@ function Calculator() {
     return sellingPrice * monthlyOrders
   }
 
-  // Update transaction fee calculation to use calculated revenue
+  // Update transaction fee calculation
   const getTransactionFee = () => {
     const rates = {
-      basic: 0.028,     // 2.8% + 30¢ CAD online
-      shopify: 0.026,   // 2.6% + 30¢ CAD online
-      advanced: 0.024   // 2.4% + 30¢ CAD online
+      basic_monthly: 0.028,
+      basic_yearly: 0.028,
+      shopify_monthly: 0.026,
+      shopify_yearly: 0.026,
+      advanced_monthly: 0.024,
+      advanced_yearly: 0.024
     }
     const revenue = calculateMonthlyRevenue()
-    // Calculate percentage fee
-    const percentageFee = revenue * rates[plan]
-    // Add 30¢ per transaction (monthlyOrders * 0.30)
+    const percentageFee = revenue * rates[selectedPlan]
     const transactionFee = monthlyOrders * 0.30
     return (percentageFee + transactionFee).toFixed(2)
   }
 
   // Get current plan cost
   const getCurrentPlanCost = () => {
-    return isYearly ? planCosts.yearly[plan] : planCosts.monthly[plan]
+    return planCosts[selectedPlan].cost
   }
 
   // Calculate total monthly cost
@@ -263,6 +259,29 @@ function Calculator() {
           >
             Use Industry Averages
           </Button>
+
+          {/* Plan Selection - Moved up */}
+          <FormControl mb={8}>
+            <Heading size="md" mb={4}>
+              Select Shopify Plan
+            </Heading>
+            <Select 
+              value={selectedPlan} 
+              onChange={(e) => setSelectedPlan(e.target.value)}
+              size="lg"
+              bg="white"
+              borderColor="gray.300"
+              _hover={{ borderColor: "gray.400" }}
+              fontWeight="medium"
+            >
+              <option value="basic_monthly">Basic Monthly - For solo entrepreneurs - $51/month</option>
+              <option value="basic_yearly">Basic Yearly - For solo entrepreneurs - $38/month (Save 25%)</option>
+              <option value="shopify_monthly">Shopify Monthly - For small teams - $132/month</option>
+              <option value="shopify_yearly">Shopify Yearly - For small teams - $99/month (Save 25%)</option>
+              <option value="advanced_monthly">Advanced Monthly - As your business scales - $517/month</option>
+              <option value="advanced_yearly">Advanced Yearly - As your business scales - $389/month (Save 25%)</option>
+            </Select>
+          </FormControl>
 
           <Grid templateColumns="repeat(2, 1fr)" gap={8}>
             {/* Left Column - Product Information */}
@@ -397,7 +416,7 @@ function Calculator() {
           </Box>
 
           <Box my={8} px={0}>
-            <FinancialSummary
+            <FinancialBreakdown
               revenue={Number(calculateTotalRevenue())}
               costs={Number(calculateTotalCosts())}
               profit={Number(calculateNetProfit())}
@@ -406,58 +425,7 @@ function Calculator() {
 
           <Divider my={8} />
 
-          {/* Billing Period Switch */}
-          <HStack 
-            justify="space-between" 
-            mb={6} 
-            bg="#f3fcf0" 
-            p={3} 
-            borderRadius="md"
-          >
-            <FormLabel mb="0" fontWeight="medium">Billing Period</FormLabel>
-            <HStack spacing={4}>
-              <Text color={!isYearly ? "black" : "gray.600"}>Monthly</Text>
-              <Switch 
-                isChecked={isYearly} 
-                onChange={(e) => setIsYearly(e.target.checked)}
-                colorScheme="green"
-                size="lg"
-              />
-              <Text color={isYearly ? "black" : "gray.600"}>
-                Yearly (Save 25%)
-              </Text>
-            </HStack>
-          </HStack>
-
-          {/* Plan Selection */}
-          <FormControl mb={6}>
-            <FormLabel 
-              fontWeight="medium"
-              color="gray.900"
-            >
-              Select Shopify Plan
-            </FormLabel>
-            <Select 
-              value={plan} 
-              onChange={(e) => setPlan(e.target.value)}
-              size="lg"
-              bg="white"
-              borderColor="gray.300"
-              _hover={{ borderColor: "gray.400" }}
-              fontWeight="medium"
-            >
-              <option value="basic">
-                Basic {plan === 'basic' && '(Most Popular)'} - For solo entrepreneurs - ${planCosts[isYearly ? 'yearly' : 'monthly'].basic}/month
-              </option>
-              <option value="shopify">
-                Shopify - For small teams - ${planCosts[isYearly ? 'yearly' : 'monthly'].shopify}/month
-              </option>
-              <option value="advanced">
-                Advanced - As your business scales - ${planCosts[isYearly ? 'yearly' : 'monthly'].advanced}/month
-              </option>
-            </Select>
-          </FormControl>
-
+          <Heading size="md" mb={4}>Summary</Heading>
           {/* Updated Cost Summary Box */}
           <Box 
             p={6} 
@@ -469,7 +437,7 @@ function Calculator() {
             <VStack spacing={6} align="stretch">
               {/* Revenue Section */}
               <Box>
-                <Text fontWeight="semibold" mb={2}>Revenue</Text>
+                <Text fontWeight="semibold" mb={2} color="gray.700">Revenue</Text>
                 <HStack justify="space-between">
                   <Text color="gray.700">Monthly Revenue:</Text>
                   <Text fontWeight="medium">${formatCurrency(calculateTotalRevenue())} CAD</Text>
@@ -559,12 +527,6 @@ function Calculator() {
                   </Text>
                 </HStack>
               </VStack>
-
-              {isYearly && (
-                <Text fontSize="sm" color="#008060" textAlign="right">
-                  You save ${formatCurrency((planCosts.monthly[plan] - planCosts.yearly[plan]) * 12)} CAD annually on your Shopify plan
-                </Text>
-              )}
             </VStack>
           </Box>
         </Box>

@@ -32,7 +32,7 @@ const isColorDark = (color) => {
   return brightness < 128
 }
 
-const FinancialSummary = ({ revenue, costs, profit }) => {
+const FinancialBreakdown = ({ revenue, costs, profit }) => {
   // Helper to handle negative profits in stacked bar
   const getCostAndProfitData = () => {
     if (profit >= 0) {
@@ -131,7 +131,7 @@ const FinancialSummary = ({ revenue, costs, profit }) => {
 
   return (
     <Box bg="white" borderRadius="xl" shadow="sm" width="100%" mx="auto">
-      <Heading size="md" mb={4} textAlign="left">Financial Summary</Heading>
+      <Heading size="md" mb={4} textAlign="left">Financial Breakdown</Heading>
       <Box height="250px" p={4}>
         <Bar data={data} options={options} />
       </Box>
@@ -139,4 +139,4 @@ const FinancialSummary = ({ revenue, costs, profit }) => {
   )
 }
 
-export default FinancialSummary 
+export default FinancialBreakdown 
