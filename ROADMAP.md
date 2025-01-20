@@ -1,5 +1,37 @@
 # Shopify Cost Calculator - Development Roadmap
 
+## Completed Features ✅
+- Basic calculator functionality
+- Input fields for all costs
+- Yearly vs Monthly billing toggle
+- Plan selection
+- Industry averages button
+- Cost summary display
+- Tooltips for each input field
+- Responsive design
+- Improved input validation
+- Profit margin calculation
+- Cost breakdown visualization (pie charts)
+- Financial summary visualization (bar chart)
+
+## Upcoming Features 🚀
+### High Priority
+- Add ability to save calculations
+- Add comparison view between different plans
+- Add print/export functionality
+
+### Medium Priority
+- Add currency selection
+- Add more detailed tooltips
+- Add more industry averages
+- Add ability to customize cost categories
+
+### Low Priority
+- Add dark mode
+- Add animations
+- Add keyboard shortcuts
+- Add ability to share calculations
+
 ## Phase 1: Basic Calculator Setup ✅
 - [x] Initial project setup with Vite and React
 - [x] Basic UI components with Chakra UI
@@ -25,17 +57,17 @@
   - [x] Add tooltips explaining each input
 
 ## Phase 3: Advanced Calculations & Visualization
-- [ ] Cost Breakdown
-  - [ ] Fixed costs vs. Variable costs
-  - [ ] Monthly overhead calculation
-  - [ ] Transaction fees calculator
+- [x] Cost Breakdown
+  - [x] Fixed costs vs. Variable costs
+  - [x] Monthly overhead calculation
+  - [x] Transaction fees calculator
   - [ ] Tax considerations
 
-- [ ] Data Visualization
-  - [ ] Install and setup Chart.js
-  - [ ] Cost breakdown pie chart
-  - [ ] Revenue vs. Costs bar chart
-  - [ ] Profit margin visualization
+- [x] Data Visualization
+  - [x] Install and setup Chart.js
+  - [x] Cost breakdown pie chart
+  - [x] Revenue vs. Costs bar chart
+  - [x] Profit margin visualization
 
 ## Phase 4: Scenario Management
 - [ ] Scenario Creation
@@ -216,21 +248,30 @@ phase-{number}: Brief description
 - Main Branch: Protected, requires pull request
 - Development Branch: Direct commits allowed 
 
-## Current Status (Phase 2)
-Completed:
-- Set up all input fields with decimal support
-- Implemented industry averages
-- Added tooltips for all fields
-- Basic calculations working
+### Deployment
+- Platform: Vercel
+- Production URL: https://shopify-calculator-nu.vercel.app/
+- Auto-deployment: Enabled from main branch
+- Build Command: `npm run build`
+- Output Directory: `dist`
 
-Next Steps:
-1. Remove redundant Monthly Revenue input
-2. Update transaction fee calculations to use Product Information
-   (Selling Price × Monthly Orders) instead of separate revenue input
-3. Ensure all calculations are properly synchronized
-4. Add proper formatting for currency values in summary
+## Current Status
+### Phase 2 Completed ✅
+- Enhanced cost inputs with decimal support
+- Additional costs section implemented
+- Industry averages and tooltips added
+- Improved calculations and revenue handling
+- Currency formatting with thousand separators
+- Successfully deployed to Vercel
 
-Known Issues to Address:
+### Next Up: Phase 3
+Focus on Advanced Calculations & Visualization:
+- Cost breakdown visualizations
+- Monthly overhead calculations
+- Transaction fees calculator improvements
+- Data visualization with Chart.js
+
+## Known Issues to Address:
 - Redundant revenue input (needs consolidation)
 - Transaction fees calculation needs to be updated
 - Consider adding thousand separators for large numbers 

@@ -21,6 +21,8 @@ import {
 import { InfoIcon } from '@chakra-ui/icons'
 import { useState, useEffect } from 'react'
 import { SHOPIFY_PLANS, TRANSACTION_RATES, INDUSTRY_AVERAGES, TOOLTIPS } from '../constants/pricing'
+import CostBreakdown from './CostBreakdown'
+import FinancialSummary from './FinancialSummary'
 
 const DecimalInput = ({ value, onChange, placeholder, min = 0 }) => {
   // Add local state to handle the input value
@@ -375,6 +377,32 @@ function Calculator() {
               </VStack>
             </GridItem>
           </Grid>
+
+          {/* Cost Breakdown Chart */}
+          <Box my={8} px={0}>
+            <CostBreakdown
+              fixedCosts={{
+                shopifyPlan: Number(getCurrentPlanCost()),
+                marketingBudget: Number(marketingBudget),
+                appCosts: Number(appCosts),
+                staffCosts: Number(staffCosts)
+              }}
+              variableCosts={{
+                productCosts: Number(calculateProductCosts()),
+                shippingCosts: Number(calculateShippingCosts()),
+                transactionFees: Number(getTransactionFee())
+              }}
+              maxWidth="100%"
+            />
+          </Box>
+
+          <Box my={8} px={0}>
+            <FinancialSummary
+              revenue={Number(calculateTotalRevenue())}
+              costs={Number(calculateTotalCosts())}
+              profit={Number(calculateNetProfit())}
+            />
+          </Box>
 
           <Divider my={8} />
 
