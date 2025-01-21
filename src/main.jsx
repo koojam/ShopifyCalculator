@@ -5,7 +5,10 @@ import { ChakraProvider, extendTheme } from '@chakra-ui/react'
 
 // Create a custom theme
 const theme = extendTheme({
-  // You can add custom theme configurations here
+  fonts: {
+    heading: `'Lato', sans-serif`,
+    body: `'Lato', sans-serif`,
+  },
 })
 
 ReactDOM.createRoot(document.getElementById('root')).render(

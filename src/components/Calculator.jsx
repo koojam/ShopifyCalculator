@@ -221,16 +221,23 @@ function Calculator() {
         mb={8}
       >
         <Container maxW="container.xl">
-          <VStack spacing={4} align="center">
+          <VStack spacing={2} align="center">
             <Heading 
               as="h1" 
-              size="xl" 
+              fontSize="70px"
               textAlign="center"
-              fontWeight="semibold"
               color="gray.900"
-              fontFamily="Inter, -apple-system, BlinkMacSystemFont, San Francisco, Segoe UI, Roboto, Helvetica Neue, sans-serif"
             >
-              Shopify Cost Calculator
+              Should I Shopify?
+            </Heading>
+            <Heading
+              as="h2"
+              fontSize="39px"
+              textAlign="center"
+              fontWeight="300"
+              color="gray.600"
+            >
+              Shopify Store Cost Calculator
             </Heading>
           </VStack>
         </Container>
