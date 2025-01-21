@@ -275,3 +275,47 @@ Focus on Advanced Calculations & Visualization:
 - Redundant revenue input (needs consolidation)
 - Transaction fees calculation needs to be updated
 - Consider adding thousand separators for large numbers 
+
+## Technical Overview
+
+### Tech Stack
+- **Frontend Framework**: React 18 with Vite
+- **UI Framework**: Chakra UI
+- **Styling**: CSS-in-JS via Chakra UI
+- **State Management**: React Hooks (useState, useEffect)
+
+### Data Visualization
+- Chart.js with React-Chartjs-2
+- Custom plugins for data labels and tooltips
+
+### Key Features
+- Real-time calculations
+- Interactive data visualization
+- Responsive design
+- Industry average presets
+- Cost breakdown analysis
+- Financial metrics visualization
+
+### Development Tools
+- Version Control: Git
+- Package Manager: npm
+- Deployment: Vercel
+- Code Editor: VS Code (recommended)
+
+### Project Structure
+```
+shopify-calculator/
+├── src/
+│   ├── components/         # React components
+│   │   ├── constants/         # Configuration and constants
+│   │   ├── assets/           # Static assets
+│   │   └── main.jsx          # Entry point
+│   ├── public/               # Public assets
+│   └── package.json          # Dependencies and scripts
+```
+
+### Performance Considerations
+- Client-side calculations
+- Optimized re-renders
+- Responsive layout
+- Mobile-first design 
