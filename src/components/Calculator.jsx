@@ -23,6 +23,7 @@ import { useState, useEffect } from 'react'
 import { SHOPIFY_PLANS, TRANSACTION_RATES, INDUSTRY_AVERAGES, TOOLTIPS } from '../constants/pricing'
 import CostBreakdown from './CostBreakdown'
 import FinancialBreakdown from './FinancialBreakdown'
+import AnnualProjection from './AnnualProjection'
 
 const DecimalInput = ({ value, onChange, placeholder, min = 0 }) => {
   // Add local state to handle the input value
@@ -536,6 +537,23 @@ function Calculator() {
               </VStack>
             </VStack>
           </Box>
+
+          <Divider my={8} />
+          
+          {/* Annual Projection Section */}
+          <Box 
+            p={6} 
+            borderWidth={1} 
+            borderRadius="xl" 
+            bg="white"
+            borderColor="gray.200"
+          >
+            <AnnualProjection
+              monthlyRevenue={Number(calculateTotalRevenue())}
+              monthlyCosts={Number(calculateTotalCosts())}
+            />
+          </Box>
+
         </Box>
       </Container>
     </Box>
