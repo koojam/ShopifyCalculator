@@ -13,24 +13,34 @@
 - Profit margin calculation
 - Cost breakdown visualization (pie charts)
 - Financial summary visualization (bar chart)
+- Annual projections with seasonal adjustments
+- Interactive revenue/cost/profit/margin chart
+- Monthly and yearly financial breakdown
+- Seasonal trend visualization
 
 ## Upcoming Features 🚀
 ### High Priority
 - Add ability to save calculations
 - Add comparison view between different plans
 - Add print/export functionality
+- Add ability to customize seasonal adjustments
+- Add ability to customize discount rates
 
 ### Medium Priority
 - Add currency selection
 - Add more detailed tooltips
 - Add more industry averages
 - Add ability to customize cost categories
+- Add quarterly view option
+- Add year-over-year comparison
 
 ### Low Priority
 - Add dark mode
 - Add animations
 - Add keyboard shortcuts
 - Add ability to share calculations
+- Add PDF export of annual projections
+- Add CSV export of monthly data
 
 ## Phase 1: Basic Calculator Setup ✅
 - [x] Initial project setup with Vite and React
